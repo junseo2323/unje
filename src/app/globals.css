@@ -2,32 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 100; /* Thin */
+    src: url('/fonts/NotoSansKR-Thin.ttf') format('truetype'); /* .ttf 파일 형식 */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 300; /* Light */
+    src: url('/fonts/NotoSansKR-Light.ttf') format('truetype'); /* .ttf 파일 형식 */
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 400; /* Regular */
+    src: url('/fonts/NotoSansKR-Regular.ttf') format('truetype'); /* .ttf 파일 형식 */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 600; /* SemiBold */
+    src: url('/fonts/NotoSansKR-SemiBold.ttf') format('truetype'); /* .ttf 파일 형식 */
+}
+
+@font-face {
+    font-family: 'Noto Sans KR';
+    font-style: normal;
+    font-weight: 700; /* Bold */
+    src: url('/fonts/NotoSansKR-Bold.ttf') format('truetype'); /* .ttf 파일 형식 */
+}
+
+body{
+	font-family: 'Noto Sans KR'
 }
