@@ -77,7 +77,7 @@ export const UserDragcal = () => {
     }
 
     return(
-        <div className={`grid grid-cols-${day+1}`}>
+        <div className={`grid grid-cols-8 grid-cols-${day+1}`}>
             <div></div>
             {
                 weeks.map((week) => (
@@ -135,7 +135,7 @@ export const Dragcal = () => {
     }
 
     return(
-        <div className={`grid grid-cols-${day+1}`}>
+        <div className={`grid grid-cols-8 grid-cols-${day+1}`}>
             <div></div>
             {
                 weeks.map((week) => (
