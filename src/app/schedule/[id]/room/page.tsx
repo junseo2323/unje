@@ -29,17 +29,17 @@ export default function Create() {
     return (
       <main>
         <div className="grid place-items-left p-[35px]">
-            <input placeholder="어떤 만남인가요?" className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
+            <input defaultValue="오준서의 밥약" className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
             <h1 className="mt-10 font-semibold text-2xl">자세한 정보를 알려주세요</h1>
-            <textarea placeholder="간단하게 한줄로 우리의 모임을 소개해주세요!" className="border-b-2 w-80 border-black outline-none pb-1 font-thin text-base h-14" />
+            <textarea defaultValue="MRA 동아리에서 함께하는 밥약입니다." className="border-b-2 w-80 border-black outline-none pb-1 font-thin text-base h-14" />
 
             <h1 className="mt-10 font-semibold text-2xl">몇일날 만나고 싶으신가요?</h1>
             <div className="mt-5">
-                <input type="date" className="w-40"/>
+                <input type="date" className="w-40" defaultValue="2024-04-11"/>
                 <span className="pl-10 font-bold">부터</span>
             </div>
             <div>
-                <input type="date" className="w-40"/>
+                <input type="date" className="w-40" defaultValue="2024-04-18"/>
                 <span className="pl-10 font-bold">까지</span>
             </div>
             <h1 className="mt-10 font-semibold text-2xl">몇시에 만나고 싶으신가요?</h1>
@@ -49,7 +49,7 @@ export default function Create() {
                     value={selectedStarttime}
                     onChange={handleStartTimeChange}
                 >
-                    <option value="">00:00</option>
+                    <option value="13:00">13:00</option>
                     {starttimes.map((time) => (
                     <option key={time} value={time}>
                         {time}
@@ -62,7 +62,7 @@ export default function Create() {
                     value={selectedTime}
                     onChange={handleTimeChange}
                 >
-                    <option value="">23:30</option>
+                    <option value="17:00">17:00</option>
                     {times.map((time) => (
                     <option key={time} value={time}>
                         {time}
@@ -73,7 +73,9 @@ export default function Create() {
             </div>
 
         </div>
-        <Button link="/schedule/test" color="bg-[#76885B] fixed bottom-0 mb-4" text="생성하기"/>
+        <Button link="/schedule/test/finish" color="bg-[#6F98FF] fixed bottom-32 mb-4" text="완료하기"/>
+        <Button link="" color="bg-[#FF6F6F] fixed bottom-16 mb-4" text="삭제하기"/>
+        <Button link="/schedule/test" color="bg-[#76885B] fixed bottom-0 mb-4" text="수정하기"/>
       </main>
     );
   }
