@@ -11,38 +11,100 @@ const dummydata = {
     endtime: "12:00"
 }
 
+const dummy = {
+    "_id": "3DRXU1",
+    "id": "3DRXU1",
+    "room_title": "공부방",
+    "room_description": "공부를 함께하는 방입니다.",
+    "start_date": "2024-04-17",
+    "end_date": "2024-04-24",
+    "start_time": "14:00",
+    "end_time": "18:00",
+    "membercount" : 3,
+    "members": [
+      {
+        "name": "오준서",
+        "time": [
+          "16:10:30",
+          "15:10:30",
+          "14:10:30"
+        ]
+      },
+      {
+        "name": "김태우",
+        "time": [
+          "16:10:30",
+          "15:10:30",
+          "14:10:30"
+        ]
+      },
+      {
+        "name": "유동현",
+        "time": [
+          "16:10:30",
+          "15:10:30",
+          "14:10:30"
+        ]
+      }
+    ]
+}
+
+interface Member {
+    name: string;
+    time: string[];
+}
+
+interface TimeCount {
+    [time: string]: number;
+}
+
+function countTimeOccurrences(members: Member[]): TimeCount {
+    const timeCount: TimeCount = {};
+
+    // 각 멤버의 시간 배열을 반복하여 시간의 등장 횟수를 계산합니다.
+    members.forEach(member => {
+        member.time.forEach(time => {
+            if (timeCount[time]) {
+                timeCount[time]++;
+            } else {
+                timeCount[time] = 1;
+            }
+        });
+    });
+
+    return timeCount;
+}
+
+
 interface ClickedType {
     id : string;
-    noclick : boolean;
+    data: string[];
+}
+interface ShowClickedType {
+    id : string;
+    count : number;
+    init?: { [key: string]: number };
 }
 
-let globalObject: { [key: string]: any } = {};
-function updateGlobalObject(key: string, value: boolean): void {
-    if (!(key in globalObject)) {
-        globalObject[key] = value;
+function updateGlobalObject(key: string, value: boolean, globalArray: string[]): void {
+    const index = globalArray.indexOf(key);
+    if (index === -1 && value) {
+        globalArray.push(key);
+    } else if (index !== -1 && !value) {
+        globalArray.splice(index, 1);
     }
-    else if (!value) {
-        delete globalObject[key];
-    }
-    else {
-        globalObject[key] = value;
-    }
+
 }
 
-const Clicked: React.FC<ClickedType> = ({id,noclick}) => {
+const Clicked: React.FC<ClickedType> = ({id,data}) => {
     const [isClicked, setIsClicked] = useState(false);
    
     const handleClick = () => {
         setIsClicked(!isClicked);
-        updateGlobalObject(id,!isClicked);
+        updateGlobalObject(id,!isClicked,data);
     }
 
     return(
-            noclick?
-            <button 
-                id={id} 
-                className={`w-full h-10 ${isClicked?'bg-lime-500':'bg-white'} border border-black`} 
-            />:
             <button 
                 id={id} 
                 className={`w-full h-10 ${isClicked?'bg-lime-500':'bg-white'} border border-black`} 
@@ -51,10 +113,25 @@ const Clicked: React.FC<ClickedType> = ({id,noclick}) => {
     )
 }
 
-export const UserDragcal = () => {
+const Showclicked: React.FC<ShowClickedType> = ({id,count,init}) => {
+    let clickmem: number = init ? init[id] || 0 : 0;
+
+    return(
+            <button 
+                id={id} 
+                className={`w-full h-10 bg-lime-${clickmem}00 border border-black`} 
+            />
+    )
+}
+
+interface UserDragcalProps {
+    getdata: string[];
+}
+
+export const UserDragcal: React.FC<UserDragcalProps> = ({getdata}) => {
     const {day,startweek,endweek,startday,starttime,endtime} = dummydata;
-  
     const week = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat','Sun','Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat','Sun'];
+    
     
     let weeks;
     if(startweek > endweek) weeks = week.slice(startweek,endweek+8);
@@ -97,7 +174,7 @@ export const UserDragcal = () => {
                     <p className="font-thin text-sm text-center">{time}</p>
                     {
                         days.map((day)=>(
-                            <Clicked id={day+':'+time} noclick={false}/>
+                            <Clicked id={day+':'+time} data={getdata}/>
                         ))
                     }
                     </>
@@ -111,7 +188,10 @@ export const UserDragcal = () => {
 
 export const Dragcal = () => {
     const {day,startweek,endweek,startday,starttime,endtime} = dummydata;
-  
+
+    const initialdata = countTimeOccurrences(dummy.members);
+    console.log(initialdata)
+
     const week = ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat','Sun','Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat','Sun'];
     
     let weeks;
@@ -135,7 +215,7 @@ export const Dragcal = () => {
     }
 
     return(
-        <div className={`grid grid-cols-8 grid-cols-${day+1}`}>
+        <div className={`grid w-80 grid-cols-8 grid-cols-${day+1}`}>
             <div></div>
             {
                 weeks.map((week) => (
@@ -155,7 +235,7 @@ export const Dragcal = () => {
                     <p className="font-thin text-sm text-center">{time}</p>
                     {
                         days.map((day)=>(
-                            <Clicked noclick={true} id={day+':'+time}/>
+                            <Showclicked id={day+':'+time} count={5} init={initialdata}/>
                         ))
                     }
                     </>

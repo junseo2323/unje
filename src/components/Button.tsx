@@ -9,6 +9,11 @@ interface ButtonbProps {
 
 export const Button: React.FC<ButtonbProps> = ({color,text,link}) => {
     return(
-        <Link href={link}><button className={`${color} w-full md:w-80 h-12 rounded-md text-white text-lg font-semibold mt-4`}>{text}</button></Link>
+        <Link href={link}>
+            <button 
+                className={`${color} w-full h-12 rounded-md text-white text-lg font-semibold mt-4`}>
+        {text}
+            </button>
+        </Link>
     )
 }
