@@ -5,7 +5,7 @@ import { Dragcal } from "@/components/Dragcal";
 import fetchRoomdata from "@/util/fetchdata";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
-import { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 
 interface Member {
   name: string;
@@ -14,8 +14,6 @@ interface Member {
 
 export default function Schedule({ params }: { params: { id: string } }) {
     const pathname = usePathname();
-
-    const [roomdata,setRoomdata] = useState<any>(null);
 
     useEffect(()=>{
       fetchRoomdata(params.id)
@@ -26,6 +24,18 @@ export default function Schedule({ params }: { params: { id: string } }) {
           console.error(error);
         })
     }, [params.id])
+
+    const [roomdata,setRoomdata] = useState<any>(null);
+    const [clicked,setClicked] = useState<string>('');
+
+    const handleClick = (event : React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      const target = event.target;
+      if (target instanceof HTMLElement) {
+          const id = target.id;
+          if(clicked===id) setClicked('');
+          else setClicked(id);    
+      }
+    }
 
     return (
       <Suspense fallback={<div>로딩중</div>}>
@@ -40,19 +50,25 @@ export default function Schedule({ params }: { params: { id: string } }) {
               <p className="font-thin text-base mb-5">{roomdata.room_description}</p>
               <h1 className="font-semibold text-2xl mb-5">투표된 일정</h1>
               <div className="mb-5">
-                <Dragcal />
+                <Dragcal roomdata={roomdata} clicked={clicked}/>
               </div>
               <h1 className="font-semibold text-2xl">가능한 사람</h1>
               <div className="mt-5">
                   {
                     (roomdata.members).map((data:Member)=>(
-                    <button className="w-20 text-start"
-                    
+                    <button className={`w-20 text-start ${clicked===data.name&&'font-semibold'}`}
+                            id={data.name}
+                            onClick={handleClick}
                     >{data.name}</button>))
                   }
               </div>
           </div>
-          <Button link={pathname+"/user"} color="bg-[#76885B] fixed bottom-0 mb-4" text="일정 생성하기"/>
+          {
+            clicked?
+            <Button link={pathname+"/user"} color="bg-[#6F98FF] fixed bottom-0 mb-4" text="일정 수정하기"/>
+            :
+            <Button link={pathname+"/user"} color="bg-[#76885B] fixed bottom-0 mb-4" text="일정 생성하기"/>
+          }
         </main>
 }      </Suspense>
     );

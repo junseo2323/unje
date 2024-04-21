@@ -1,15 +1,74 @@
 'use client'
+
 import { Button } from "@/components/Button";
 import fetchRoomdata from "@/util/fetchdata";
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useRouter } from 'next/navigation'
+import React, { Suspense, useEffect, useState } from "react";
+import {SubmitHandler, useForm} from "react-hook-form"
+import Swal from "sweetalert2";
 
-export default function Create() {
-  const [selectedStarttime, setSelectedStarttime] = useState<string>("");
-  const [selectedTime, setSelectedTime] = useState<string>("");
+type Inputs = {
+  room_title: string,
+  room_description: string,
+  start_date: string,
+  end_date: string,
+  start_time: string,
+  end_time: string,
+}
+
+export default function Create({ params }: { params: { id: string } }) {
+  const router = useRouter();
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    console.log(data);
+    const body = {
+      id : params.id,
+      newData : data
+    }
+
+    Swal.fire({
+      icon: 'info',
+      title: '수정하기',
+      text: '방 정보를 등록하시겠습니까?',
+      showCancelButton: true,
+      confirmButtonText: '예', 
+      cancelButtonText: '아니오',
+      confirmButtonColor: '#429f50',
+      cancelButtonColor: '#d33',
+    })
+    .then(result => {
+      if (result.isConfirmed) {
+        axios.put("http://localhost:3000/api/modifyroom",body)
+        .then(res => {
+          console.log("call finish", res.data);
+        })
+        .catch(error => {
+          console.error("Error handle", error);
+        })  
+        router.push('/schedule/'+params.id);
+      }
+    })
+  };
+
+  const {
+    register,
+    handleSubmit
+  } = useForm<Inputs>();
+
+  const [roomdata,setRoomdata] = useState<any>(null);
+
+  useEffect(()=>{
+    fetchRoomdata(params.id)
+      .then((data) => {
+        setRoomdata(data);
+      })
+      .catch((error)=> {
+        console.error(error);
+      })
+  }, [params.id])
 
   const starttimes: string[] = [];
   const times: string[] = [];
-
 
   for (let hour = 0; hour < 24; hour++) {
     for (let minute = 0; minute < 60; minute += 30) {
@@ -20,64 +79,60 @@ export default function Create() {
     }
   }
 
-  const handleStartTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedStarttime(event.target.value);
-  };
+  
 
-  const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTime(event.target.value);
-  };
     return (
-      <main>
-        <div className="grid place-items-left p-[35px]">
-            <input defaultValue="오준서의 밥약" className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
-            <h1 className="mt-10 font-semibold text-2xl">자세한 정보를 알려주세요</h1>
-            <textarea defaultValue="MRA 동아리에서 함께하는 밥약입니다." className="border-b-2 w-80 border-black outline-none pb-1 font-thin text-base h-14" />
-
-            <h1 className="mt-10 font-semibold text-2xl">몇일날 만나고 싶으신가요?</h1>
-            <div className="mt-5">
-                <input type="date" className="w-40" defaultValue="2024-04-11"/>
-                <span className="pl-10 font-bold">부터</span>
-            </div>
-            <div>
-                <input type="date" className="w-40" defaultValue="2024-04-18"/>
-                <span className="pl-10 font-bold">까지</span>
-            </div>
-            <h1 className="mt-10 font-semibold text-2xl">몇시에 만나고 싶으신가요?</h1>
-            
-            <div className="mt-5">
-                <select
-                    value={selectedStarttime}
-                    onChange={handleStartTimeChange}
-                >
-                    <option value="13:00">13:00</option>
-                    {starttimes.map((time) => (
-                    <option key={time} value={time}>
-                        {time}
-                    </option>
-                    ))}
-                </select>
-                <span>부터</span>
-
-                <select
-                    value={selectedTime}
-                    onChange={handleTimeChange}
-                >
-                    <option value="17:00">17:00</option>
-                    {times.map((time) => (
-                    <option key={time} value={time}>
-                        {time}
-                    </option>
-                    ))}
-                </select>
-                <span>까지</span>
-            </div>
-
-        </div>
-        <Button link="/schedule/test/finish" color="bg-[#6F98FF] fixed bottom-32 mb-4" text="완료하기"/>
-        <Button link="" color="bg-[#FF6F6F] fixed bottom-16 mb-4" text="삭제하기"/>
-        <Button link="/schedule/test" color="bg-[#76885B] fixed bottom-0 mb-4" text="수정하기"/>
-      </main>
+      <Suspense fallback={<div>로딩중</div>}>
+        {
+          roomdata && <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid place-items-left p-[35px]">
+              <input defaultValue={roomdata.room_title} {...register("room_title")} className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
+              <h1 className="mt-10 font-semibold text-2xl">자세한 정보를 알려주세요</h1>
+              <textarea defaultValue={roomdata.room_description} {...register("room_description")} className="border-b-2 w-80 border-black outline-none pb-1 font-thin text-base h-14" />
+  
+              <h1 className="mt-10 font-semibold text-2xl">몇일날 만나고 싶으신가요?</h1>
+              <div className="mt-5">
+                  <input type="date" className="w-40" defaultValue={roomdata.start_date} {...register("start_date")}/>
+                  <span className="pl-10 font-bold">부터</span>
+              </div>
+              <div>
+                  <input type="date" className="w-40" defaultValue={roomdata.end_date} {...register("end_date")}/>
+                  <span className="pl-10 font-bold">까지</span>
+              </div>
+              <h1 className="mt-10 font-semibold text-2xl">몇시에 만나고 싶으신가요?</h1>
+              
+              <div className="mt-5">
+                  <select
+                      {...register("start_time")}
+                  >
+                      <option value={roomdata.start_time}>{roomdata.start_time}</option>
+                      {starttimes.map((time) => (
+                      <option key={time} value={time}>
+                          {time}
+                      </option>
+                      ))}
+                  </select>
+                  <span>부터</span>
+  
+                  <select
+                      {...register("end_time")}
+                  >
+                      <option value={roomdata.end_time}>{roomdata.end_time}</option>
+                      {times.map((time) => (
+                      <option key={time} value={time}>
+                          {time}
+                      </option>
+                      ))}
+                  </select>
+                  <span>까지</span>
+              </div>
+  
+          </div>
+          <Button link={"/schedule/"+params.id+"/finish"} color="bg-[#6F98FF] fixed bottom-32 mb-4" text="완료하기"/>
+          <Button link="" color="bg-[#FF6F6F] fixed bottom-16 mb-4" text="삭제하기"/>
+          <input type="submit" className={`bg-[#76885B] fixed bottom-0 mb-4 w-full h-12 rounded-md text-white text-lg font-semibold mt-4`} value="수정하기"/>
+        </form>}
+      </Suspense>
     );
   }
   
