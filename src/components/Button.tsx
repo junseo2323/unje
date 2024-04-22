@@ -16,4 +16,4 @@ export const Button: React.FC<ButtonbProps> = ({color,text,link}) => {
             </button>
         </Link>
     )
-}
+} 

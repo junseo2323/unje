@@ -213,8 +213,18 @@ export const UserDragcal: React.FC<UserDragcalProps> = ({getdata,roomdata}) => {
         days.push(formattedDate);
     }
       
-    const colscount = 'grid-cols-'+(day+1);
-
+    const colscount: { [key: number]: string } = {
+        0: 'grid-cols-1',
+        1: 'grid-cols-2',
+        2: 'grid-cols-3',
+        3: 'grid-cols-4',
+        4: 'grid-cols-5',
+        5: 'grid-cols-6',
+        6: 'grid-cols-7',
+        7: 'grid-cols-8'
+    };
+    const colClass = colscount[day] || '';
+    
     const start = starttime.split(':');
     const end = endtime.split(':');
 
@@ -230,7 +240,7 @@ export const UserDragcal: React.FC<UserDragcalProps> = ({getdata,roomdata}) => {
     }
 
     return(
-        <div className={`grid ${colscount}`}>
+        <div className={`grid  ${colClass}`}>
             <div></div>
             {
                 weeks.map((week) => (
@@ -300,7 +310,18 @@ export const Dragcal: React.FC<DragcalProps> = ({roomdata,clicked}) => {
         days.push(formattedDate);
     }
       
-    const colscount = 'grid-cols-'+(day+1);
+    const colscount: { [key: number]: string } = {
+        0: 'grid-cols-1',
+        1: 'grid-cols-2',
+        2: 'grid-cols-3',
+        3: 'grid-cols-4',
+        4: 'grid-cols-5',
+        5: 'grid-cols-6',
+        6: 'grid-cols-7',
+        7: 'grid-cols-8'
+    };
+    const colClass = colscount[day] || '';
+
 
     const start = starttime.split(':');
     const end = endtime.split(':');
@@ -318,10 +339,12 @@ export const Dragcal: React.FC<DragcalProps> = ({roomdata,clicked}) => {
 
     console.log(times)
 
+    // Check if the key exists before accessing it
+    
     return(
         <Suspense fallback={<div>로딩중</div>}>
             {roomdata &&
-                <div className={`grid w-80 ${colscount}`}>
+                <div className={`grid w-80 ${colClass}`}>
                 <div></div>
                 {
                     weeks.map((week) => (
@@ -385,8 +408,17 @@ export const FinalDragcal: React.FC<FinalDragcalProps> = ({getdata,roomdata}) =>
         days.push(formattedDate);
     }
       
-    const colscount = 'grid-cols-'+(day+1);
-
+    const colscount: { [key: number]: string } = {
+        0: 'grid-cols-1',
+        1: 'grid-cols-2',
+        2: 'grid-cols-3',
+        3: 'grid-cols-4',
+        4: 'grid-cols-5',
+        5: 'grid-cols-6',
+        6: 'grid-cols-7',
+        7: 'grid-cols-8'
+    };
+    const colClass = colscount[day] || '';
     const start = starttime.split(':');
     const end = endtime.split(':');
 
@@ -404,7 +436,7 @@ export const FinalDragcal: React.FC<FinalDragcalProps> = ({getdata,roomdata}) =>
     return(
         <Suspense fallback={<div>로딩중</div>}>
             {roomdata &&
-                <div className={`grid w-80 ${colscount}`}>
+                <div className={`grid w-80 ${colClass}`}>
                 <div></div>
                 {
                     weeks.map((week) => (
