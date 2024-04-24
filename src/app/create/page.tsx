@@ -63,7 +63,7 @@ export default function Create() {
 
     Swal.fire({
       icon: 'info',
-      title: '수정하기',
+      title: '등록하기',
       text: '방 정보를 등록하시겠습니까?',
       showCancelButton: true,
       confirmButtonText: '예', 

@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/Button";
 import { Dragcal } from "@/components/Dragcal";
+import { Share, ShareButton } from "@/components/Share";
 import fetchRoomdata from "@/util/fetchdata";
 import Link from "next/link";
 import { usePathname } from 'next/navigation'
@@ -63,14 +64,13 @@ export default function Schedule({ params }: { params: { id: string } }) {
                   </div>
 
               </div>
-              <Button link='' color="bg-[#6F98FF] fixed bottom-0 mb-4" text="일정 공유하기"/>
-
+              <ShareButton title="공유 테스트입니다." description="공유를 테스트합니다" url={pathname}/>
             </div>
             :
             <>
               <div className="fixed right-10 top-[35px]">
                   <p><Link href={pathname+'/room'} className="font-semibold text-xl">수정하기</Link></p>
-                  <p><Link href={pathname+'/'} className="font-semibold text-xl">공유하기</Link></p>
+                  <Share title="공유 테스트입니다." description="공유를 테스트합니다" url={pathname}/>
               </div>
               <div className="grid place-items-left p-[35px]">
                   <p className="font-semibold">{roomdata.id}</p>
