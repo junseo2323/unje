@@ -71,7 +71,7 @@ export default function User({ params }: { params: { id: string } }) {
       })
       .then(result => {
         if (result.isConfirmed) {
-          axios.post("https://localhost:3000/api/usercreate",data)
+          axios.post("http://43.201.19.213/api/usercreate",data)
           .then(res => {
             console.log("call finish", res.data);
           })

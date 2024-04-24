@@ -107,7 +107,7 @@ export default function User({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.put("https://localhost:3000/api/finishroom",body)
+        axios.put("http://43.201.19.213/api/finishroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })
