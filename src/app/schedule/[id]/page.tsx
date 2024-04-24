@@ -53,8 +53,8 @@ export default function Schedule({ params }: { params: { id: string } }) {
               <div className="pl-[35px]">
                 <h1 className="font-semibold text-2xl">언제 만날까요?</h1>
                 {
-                  (roomdata.result as string[]).map((e: string)=>(
-                    <p className="text-ms m-5">{e}</p>
+                  (roomdata.result as string[]).map((e: string, index)=>(
+                    <p key={index} className="text-ms m-5">{e}</p>
                   ))
                 }
                 <p className="font-thin text-xl mb-5">에 만납시다:D</p>
@@ -83,8 +83,10 @@ export default function Schedule({ params }: { params: { id: string } }) {
                   <h1 className="font-semibold text-2xl">가능한 사람</h1>
                   <div className="mt-5">
                       {
-                        (roomdata.members).map((data:Member)=>(
-                        <button className={`w-20 text-start ${clicked===data.name&&'font-semibold'}`}
+                        (roomdata.members).map((data:Member,index:any)=>(
+                        <button 
+                                key={index}
+                                className={`w-20 text-start ${clicked===data.name&&'font-semibold'}`}
                                 id={data.name}
                                 onClick={handleClick}
                         >{data.name}</button>))
@@ -93,7 +95,7 @@ export default function Schedule({ params }: { params: { id: string } }) {
               </div>
               {
                 clicked?
-                <Button link={pathname+"/user"} color="bg-[#6F98FF] fixed bottom-0 mb-4" text="일정 수정하기"/>
+                <Button link={pathname+"/modify/"+clicked} color="bg-[#6F98FF] fixed bottom-0 mb-4" text="일정 수정하기"/>
                 :
                 <Button link={pathname+"/user"} color="bg-[#76885B] fixed bottom-0 mb-4" text="일정 생성하기"/>
               }

@@ -243,24 +243,24 @@ export const UserDragcal: React.FC<UserDragcalProps> = ({getdata,roomdata}) => {
         <div className={`grid  ${colClass}`}>
             <div></div>
             {
-                weeks.map((week) => (
-                    <p className="text-center font-thin text-sm">{week}</p>
+                weeks.map((week,index) => (
+                    <p key={index} className="text-center font-thin text-sm">{week}</p>
                 ))
             }
 
             <div></div>
             {
-                days.map((day) => (
-                    <p className="text-center font-normal text-sm">{day}</p>
+                days.map((day, index) => (
+                    <p key={index} className="text-center font-normal text-sm">{day}</p>
                 ))
             }
             {
-                times.map((time)=>(
+                times.map((time,index)=>(
                     <>
-                    <p className="font-thin text-sm text-center">{time}</p>
+                    <p key={index} className="font-thin text-sm text-center">{time}</p>
                     {
-                        days.map((day)=>(
-                            <Clicked id={day+':'+time} data={getdata}/>
+                        days.map((day,index)=>(
+                            <Clicked key={index} id={day+':'+time} data={getdata}/>
                         ))
                     }
                     </>
@@ -347,24 +347,24 @@ export const Dragcal: React.FC<DragcalProps> = ({roomdata,clicked}) => {
                 <div className={`grid w-80 ${colClass}`}>
                 <div></div>
                 {
-                    weeks.map((week) => (
-                        <p className="text-center font-thin text-sm">{week}</p>
+                    weeks.map((week,index) => (
+                        <p key={index} className="text-center font-thin text-sm">{week}</p>
                     ))
                 }
     
                 <div></div>
                 {
-                    days.map((day) => (
-                        <p className="text-center font-normal text-sm">{day}</p>
+                    days.map((day, index) => (
+                        <p key={index} className="text-center font-normal text-sm">{day}</p>
                     ))
                 }
                 {
-                    times.map((time)=>(
+                    times.map((time,index)=>(
                         <>
-                        <p className="font-thin text-sm text-center">{time}</p>
+                        <p key={index} className="font-thin text-sm text-center">{time}</p>
                         {
-                            days.map((day)=>(
-                                <Showclicked id={day+':'+time} count={5} init={initialdata} clicked={clickeddata}/>
+                            days.map((day,index)=>(
+                                <Showclicked key={index} id={day+':'+time} count={5} init={initialdata} clicked={clickeddata}/>
                             ))
                         }
                         </>
@@ -439,24 +439,24 @@ export const FinalDragcal: React.FC<FinalDragcalProps> = ({getdata,roomdata}) =>
                 <div className={`grid w-80 ${colClass}`}>
                 <div></div>
                 {
-                    weeks.map((week) => (
-                        <p className="text-center font-thin text-sm">{week}</p>
+                    weeks.map((week,index) => (
+                        <p key={index} className="text-center font-thin text-sm">{week}</p>
                     ))
                 }
     
                 <div></div>
                 {
-                    days.map((day) => (
-                        <p className="text-center font-normal text-sm">{day}</p>
+                    days.map((day,index) => (
+                        <p key={index} className="text-center font-normal text-sm">{day}</p>
                     ))
                 }
                 {
-                    times.map((time)=>(
+                    times.map((time,index)=>(
                         <>
-                        <p className="font-thin text-sm text-center">{time}</p>
+                        <p key={index} className="font-thin text-sm text-center">{time}</p>
                         {
-                            days.map((day)=>(
-                                <Finalclicked id={day+':'+time} init={initialdata} data={getdata} />
+                            days.map((day,index)=>(
+                                <Finalclicked key={index} id={day+':'+time} init={initialdata} data={getdata} />
                             ))
                         }
                         </>
