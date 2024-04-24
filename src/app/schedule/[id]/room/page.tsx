@@ -38,7 +38,7 @@ export default function Create({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.put("https://unje.vercel.app/api/modifyroom",body)
+        axios.put("https://localhost:3000/api/modifyroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })
