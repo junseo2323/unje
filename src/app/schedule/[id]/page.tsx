@@ -24,7 +24,7 @@ export default function Schedule({ params }: { params: { id: string } }) {
         .catch((error)=> {
           console.error(error);
         })
-    }, [params.id])
+    }, [])
 
     const [roomdata,setRoomdata] = useState<any>(null);
     const [clicked,setClicked] = useState<string>('');
@@ -81,7 +81,7 @@ export default function Schedule({ params }: { params: { id: string } }) {
                     <Dragcal roomdata={roomdata} clicked={clicked}/>
                   </div>
                   <h1 className="font-semibold text-2xl">가능한 사람</h1>
-                  <div className="mt-5">
+                  <div className="mt-5 mb-40">
                       {
                         (roomdata.members).map((data:Member,index:any)=>(
                         <button 

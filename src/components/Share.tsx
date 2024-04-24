@@ -27,16 +27,16 @@ export const Share = ({title,description,url}:shareType) => {
               imageUrl:
                 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
               link: {
-                mobileWebUrl: "https://unje.vercel.app"+url,
-                webUrl: url,
+                mobileWebUrl: "https://unje.site"+url,
+                webUrl: "https://unje.site/"+url,
               },
             },
             buttons: [
               {
                 title: '일정 만들기',
                 link: {
-                  mobileWebUrl: "https://unje.vercel.app"+url,
-                  webUrl: "https://unje.vercel.app"+url,
+                  mobileWebUrl: "https://unje.site"+url,
+                  webUrl: "https://unje.site"+url,
                 },
               }
             ],
@@ -62,7 +62,7 @@ export const Share = ({title,description,url}:shareType) => {
         Swal.fire({
             title: "공유하기",
             input: "text",
-            inputValue: url,
+            inputValue: "https://unje.site/"+url,
             showCancelButton: true,
             showDenyButton: true,
             confirmButtonColor: "#76885B",
@@ -108,16 +108,16 @@ export const ShareButton = ({title,description,url}:shareType) => {
               imageUrl:
                 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
               link: {
-                mobileWebUrl: "https://unje.vercel.app"+url,
-                webUrl: "https://unje.vercel.app"+url,
+                mobileWebUrl: "https://unje.site"+url,
+                webUrl: "https://unje.site"+url,
               },
             },
             buttons: [
               {
                 title: '일정 만들기',
                 link: {
-                  mobileWebUrl: "https://unje.vercel.app"+url,
-                  webUrl: "https://unje.vercel.app"+url,
+                  mobileWebUrl: "https://unje.site"+url,
+                  webUrl: "https://unje.site"+url,
                 },
               }
             ],
@@ -143,7 +143,7 @@ export const ShareButton = ({title,description,url}:shareType) => {
         Swal.fire({
             title: "공유하기",
             input: "text",
-            inputValue: url,
+            inputValue: "https://unje.site/"+url,
             showCancelButton: true,
             showDenyButton: true,
             confirmButtonColor: "#76885B",
