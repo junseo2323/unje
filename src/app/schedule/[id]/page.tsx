@@ -64,13 +64,13 @@ export default function Schedule({ params }: { params: { id: string } }) {
                   </div>
 
               </div>
-              <ShareButton title="공유 테스트입니다." description="공유를 테스트합니다" url={pathname}/>
+              <ShareButton title={roomdata.room_title} description={roomdata.room_descripton} url={pathname}/>
             </div>
             :
             <>
               <div className="fixed right-10 top-[35px]">
                   <p><Link href={pathname+'/room'} className="font-semibold text-xl">수정하기</Link></p>
-                  <Share title="공유 테스트입니다." description="공유를 테스트합니다" url={pathname}/>
+                  <Share title={roomdata.room_title} description={roomdata.room_descripton} url={pathname}/>
               </div>
               <div className="grid place-items-left p-[35px]">
                   <p className="font-semibold">{roomdata.id}</p>

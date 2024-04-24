@@ -288,7 +288,7 @@ export const Dragcal: React.FC<DragcalProps> = ({roomdata,clicked}) => {
     const {day,startweek,endweek,startday,starttime,endtime} = dummydata;
 
     const initialdata = countTimeOccurrences(roomdata.members);
-    let clickeddata: string[];
+    let clickeddata: string[] = [];
     
     (roomdata.members).forEach((e) => {
         const {name,time} = e;
