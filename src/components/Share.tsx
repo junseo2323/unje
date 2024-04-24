@@ -27,7 +27,7 @@ export const Share = ({title,description,url}:shareType) => {
               imageUrl:
                 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
               link: {
-                mobileWebUrl: url,
+                mobileWebUrl: "https://unje.vercel.app"+url,
                 webUrl: url,
               },
             },
@@ -35,8 +35,8 @@ export const Share = ({title,description,url}:shareType) => {
               {
                 title: '일정 만들기',
                 link: {
-                  mobileWebUrl: url,
-                  webUrl: url,
+                  mobileWebUrl: "https://unje.vercel.app"+url,
+                  webUrl: "https://unje.vercel.app"+url,
                 },
               }
             ],
@@ -108,16 +108,16 @@ export const ShareButton = ({title,description,url}:shareType) => {
               imageUrl:
                 'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
               link: {
-                mobileWebUrl: url,
-                webUrl: url,
+                mobileWebUrl: "https://unje.vercel.app"+url,
+                webUrl: "https://unje.vercel.app"+url,
               },
             },
             buttons: [
               {
                 title: '일정 만들기',
                 link: {
-                  mobileWebUrl: url,
-                  webUrl: url,
+                  mobileWebUrl: "https://unje.vercel.app"+url,
+                  webUrl: "https://unje.vercel.app"+url,
                 },
               }
             ],
