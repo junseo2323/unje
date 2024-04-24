@@ -75,7 +75,7 @@ export default function Create() {
       console.log(newId);
       console.log(body);
       if (result.isConfirmed) {
-        axios.post("http://43.201.19.213/api/createroom",body)
+        axios.post("https://43.201.19.213/api/createroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })
