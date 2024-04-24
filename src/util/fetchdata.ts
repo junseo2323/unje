@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default function fetchRoomdata(id: string) {
-    return axios.get("http://localhost:3000/api/searchroom", {
+    return axios.get("https://unje.vercel.app/api/searchroom", {
       params: {
         id: id
       }
@@ -16,7 +16,7 @@ export default function fetchRoomdata(id: string) {
 }
 
 export function fetchGenerateId() {
-  return axios.get("http://localhost:3000/api/generateid")
+  return axios.get("https://unje.vercel.app/api/generateid")
   .then((response) => {
       return response.data;
   })
