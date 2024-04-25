@@ -21,26 +21,6 @@ export default function Schedule({ params }: { params: { id: string } }) {
       fetchRoomdata(params.id)
         .then((data) => {
           setRoomdata(data);
-
-          if(data===null) {
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'center',
-              showConfirmButton: false,
-              timer: 2000,
-              timerProgressBar: true,
-              didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-              }
-            })
-            Toast.fire({
-              icon: 'error',
-              title: '없는 코드입니다.'
-            })
-    
-            router.push('/main');
-          }
         })
         .catch((error)=> {
           console.error(error);
@@ -61,7 +41,7 @@ export default function Schedule({ params }: { params: { id: string } }) {
 
     return (
       <Suspense fallback={<div>로딩중</div>}>
-    {roomdata ? <main>
+    {roomdata && <main>
           {
             roomdata.isfinish?
             <div>
@@ -122,9 +102,7 @@ export default function Schedule({ params }: { params: { id: string } }) {
               }
             </>
           }
-        </main>:<div>
-          없는 방입니다.
-        </div>
+        </main>
 }      </Suspense>
     );
   }
