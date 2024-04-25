@@ -5,8 +5,9 @@ import { Dragcal } from "@/components/Dragcal";
 import { Share, ShareButton } from "@/components/Share";
 import fetchRoomdata from "@/util/fetchdata";
 import Link from "next/link";
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 interface Member {
   name: string;
@@ -15,11 +16,31 @@ interface Member {
 
 export default function Schedule({ params }: { params: { id: string } }) {
     const pathname = usePathname();
-    
+    const router = useRouter();
     useEffect(()=>{
       fetchRoomdata(params.id)
         .then((data) => {
           setRoomdata(data);
+
+          if(data===null) {
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'center',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+            Toast.fire({
+              icon: 'error',
+              title: '없는 코드입니다.'
+            })
+    
+            router.push('/main');
+          }
         })
         .catch((error)=> {
           console.error(error);
@@ -40,7 +61,7 @@ export default function Schedule({ params }: { params: { id: string } }) {
 
     return (
       <Suspense fallback={<div>로딩중</div>}>
-    {roomdata && <main>
+    {roomdata ? <main>
           {
             roomdata.isfinish?
             <div>
@@ -64,13 +85,13 @@ export default function Schedule({ params }: { params: { id: string } }) {
                   </div>
 
               </div>
-              <ShareButton title={roomdata.room_title} description={roomdata.room_descripton} url={pathname}/>
+              <ShareButton titles={roomdata.room_title} descriptions={roomdata.room_descripton} url={pathname}/>
             </div>
             :
             <>
               <div className="fixed right-10 top-[35px]">
                   <p><Link href={pathname+'/room'} className="font-semibold text-xl">수정하기</Link></p>
-                  <Share title={roomdata.room_title} description={roomdata.room_descripton} url={pathname}/>
+                  <Share titles={roomdata.room_title} descriptions={roomdata.room_descripton} url={pathname}/>
               </div>
               <div className="grid place-items-left p-[35px]">
                   <p className="font-semibold">{roomdata.id}</p>
@@ -101,7 +122,9 @@ export default function Schedule({ params }: { params: { id: string } }) {
               }
             </>
           }
-        </main>
+        </main>:<div>
+          없는 방입니다.
+        </div>
 }      </Suspense>
     );
   }

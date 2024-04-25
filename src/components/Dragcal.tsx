@@ -185,15 +185,33 @@ function getDayOfWeek(dateStr: string): number {
 }
 
 export const UserDragcal: React.FC<UserDragcalProps> = ({getdata,roomdata}) => {
-    useEffect(()=>{
-        dummydata['day'] = getDateDifference(roomdata.start_date, roomdata.end_date);
-        dummydata['starttime'] = roomdata.start_time;
-        dummydata['endtime'] = roomdata.end_time;
-        dummydata['startday'] = parseInt(((roomdata.start_date).split('-'))[2]);
-        dummydata['endday'] = parseInt(((roomdata.end_date).split('-'))[2])
-        dummydata['startweek'] = getDayOfWeek(roomdata.start_date);
-        dummydata['endweek'] = getDayOfWeek(roomdata.end_date);
-    })
+    const [dummydata,setDummydata] = useState<dummydataType>({
+        day : -1, // 최대 7일
+        startweek : 0, //0 : sun
+        endweek : 0, //6 : sat
+        startday: 0,
+        endday : 0,
+        starttime: "",
+        endtime: "",
+        startDate: new Date(),
+        endDate: new Date()    
+    });
+    
+    useEffect(()=>{ 
+        setDummydata({
+            day : getDateDifference(roomdata.start_date, roomdata.end_date), // 최대 7일
+            startweek : getDayOfWeek(roomdata.start_date), //0 : sun
+            endweek : getDayOfWeek(roomdata.end_date), //6 : sat
+            startday: parseInt(((roomdata.start_date).split('-'))[2]),
+            endday : parseInt(((roomdata.end_date).split('-'))[2]),
+            starttime: roomdata.start_time,
+            endtime: roomdata.end_time,
+            startDate: new Date(),
+            endDate: new Date()    
+    
+        });
+    },[])
+
 
     const {day,startweek,endweek,startday,starttime,endtime} = dummydata;
 
@@ -407,14 +425,32 @@ export const Dragcal: React.FC<DragcalProps> = ({roomdata,clicked}) => {
 
 export const FinalDragcal: React.FC<FinalDragcalProps> = ({getdata,roomdata}) => {
     
-    useEffect(()=>{
-        dummydata['day'] = getDateDifference(roomdata.start_date, roomdata.end_date);
-        dummydata['starttime'] = roomdata.start_time;
-        dummydata['endtime'] = roomdata.end_time;
-        dummydata['endday'] = parseInt(((roomdata.end_date).split('-'))[2])
-        dummydata['startweek'] = getDayOfWeek(roomdata.start_date);
-        dummydata['endweek'] = getDayOfWeek(roomdata.end_date);
-    })
+    const [dummydata,setDummydata] = useState<dummydataType>({
+        day : -1, // 최대 7일
+        startweek : 0, //0 : sun
+        endweek : 0, //6 : sat
+        startday: 0,
+        endday : 0,
+        starttime: "",
+        endtime: "",
+        startDate: new Date(),
+        endDate: new Date()    
+    });
+    
+    useEffect(()=>{ 
+        setDummydata({
+            day : getDateDifference(roomdata.start_date, roomdata.end_date), // 최대 7일
+            startweek : getDayOfWeek(roomdata.start_date), //0 : sun
+            endweek : getDayOfWeek(roomdata.end_date), //6 : sat
+            startday: parseInt(((roomdata.start_date).split('-'))[2]),
+            endday : parseInt(((roomdata.end_date).split('-'))[2]),
+            starttime: roomdata.start_time,
+            endtime: roomdata.end_time,
+            startDate: new Date(),
+            endDate: new Date()    
+    
+        });
+    },[])
 
     const {day,startweek,endweek,starttime,endtime} = dummydata;
 

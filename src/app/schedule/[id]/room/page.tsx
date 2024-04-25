@@ -38,7 +38,7 @@ export default function Create({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.put("https://unje.site/api/modifyroom",body)
+        axios.put("http://localhost:3000/api/modifyroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })
@@ -67,6 +67,36 @@ export default function Create({ params }: { params: { id: string } }) {
       })
   }, [params.id])
 
+  const handleDeleteClick = () => {
+    Swal.fire({
+      icon: 'error',
+      title: '방 삭제하기',
+      text: '방 정보를 삭제하시겠습니까?',
+      showCancelButton: true,
+      confirmButtonText: '예', 
+      cancelButtonText: '아니오',
+      confirmButtonColor: '#429f50',
+      cancelButtonColor: '#d33',
+    })
+    .then(result => {
+      if (result.isConfirmed) {
+        axios.delete("http://localhost:3000/api/deleteroom",{
+          params: {
+            id : params.id
+          }
+        })
+        .then(res => {
+          console.log("call finish", res.data);
+        })
+        .catch(error => {
+          console.error("Error handle", error);
+        })  
+        router.push('/main');
+      }
+    })
+  };
+
+
   const starttimes: string[] = [];
   const times: string[] = [];
 
@@ -84,7 +114,8 @@ export default function Create({ params }: { params: { id: string } }) {
     return (
       <Suspense fallback={<div>로딩중</div>}>
         {
-          roomdata && <form onSubmit={handleSubmit(onSubmit)}>
+          roomdata && <>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid place-items-left p-[35px]">
               <input defaultValue={roomdata.room_title} {...register("room_title")} className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
               <h1 className="mt-10 font-semibold text-2xl">자세한 정보를 알려주세요</h1>
@@ -128,10 +159,16 @@ export default function Create({ params }: { params: { id: string } }) {
               </div>
   
           </div>
-          <Button link={"/schedule/"+params.id+"/finish"} color="bg-[#6F98FF] fixed bottom-32 mb-4" text="완료하기"/>
-          <Button link="" color="bg-[#FF6F6F] fixed bottom-16 mb-4" text="삭제하기"/>
           <input type="submit" className={`bg-[#76885B] fixed bottom-0 mb-4 w-full h-12 rounded-md text-white text-lg font-semibold mt-4`} value="수정하기"/>
-        </form>}
+        </form>
+        <Button link={"/schedule/"+params.id+"/finish"} color="bg-[#6F98FF] fixed bottom-32 mb-4" text="완료하기"/>
+        <button
+              onClick={handleDeleteClick} 
+              className={`bg-[#FF6F6F] fixed bottom-16 mb-4 w-full h-12 rounded-md text-white text-lg font-semibold mt-4`}>
+          삭제하기
+        </button>
+</>        
+        }
       </Suspense>
     );
   }
