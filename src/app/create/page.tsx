@@ -75,7 +75,7 @@ export default function Create() {
       console.log(newId);
       console.log(body);
       if (result.isConfirmed) {
-        axios.post("https://unje.site/api/createroom",body)
+        axios.post("http://localhost:3000/api/createroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })
@@ -115,28 +115,28 @@ export default function Create() {
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid place-items-left p-[35px]">
-            <input {...register('room_title')} placeholder="어떤 만남인가요?" className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
+            <input {...register('room_title',{required: true})} placeholder="어떤 만남인가요?" className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
             <h1 className="mt-10 font-semibold text-2xl">자세한 정보를 알려주세요</h1>
-            <textarea {...register('room_description')} placeholder="간단하게 한줄로 우리의 모임을 소개해주세요!" className="border-b-2 w-80 border-black outline-none pb-1 font-thin text-base h-14" />
+            <textarea {...register('room_description',{required: true})} placeholder="간단하게 한줄로 우리의 모임을 소개해주세요!" className="border-b-2 w-80 border-black outline-none pb-1 font-thin text-base h-14" />
 
             <h1 className="mt-10 font-semibold text-2xl">몇일날 만나고 싶으신가요?</h1>
             <div className="mt-5">
-                <input type="date" className="w-40" {...register('start_date')}/>
+                <input type="date" className="w-40" {...register('start_date',{required: true})}/>
                 <span className="pl-10 font-bold">부터</span>
             </div>
             <div>
-                <input type="date" className="w-40" {...register('end_date')}/>
+                <input type="date" className="w-40" {...register('end_date',{required: true})}/>
                 <span className="pl-10 font-bold" >까지</span>
             </div>
             <h1 className="mt-10 font-semibold text-2xl">몇시에 만나고 싶으신가요?</h1>
             
             <div className="mt-5">
                 <select
-                    {...register('start_time')}
+                    {...register('start_time',{required: true})}
                     value={selectedStarttime}
                     onChange={handleStartTimeChange}
                 >
-                    <option value="">00:00</option>
+                    <option value="00:00">00:00</option>
                     {starttimes.map((time) => (
                     <option key={time} value={time}>
                         {time}
@@ -146,11 +146,11 @@ export default function Create() {
                 <span>부터</span>
 
                 <select
-                    {...register('end_time')}
+                    {...register('end_time',{required: true})}
                     value={selectedTime}
                     onChange={handleTimeChange}
                 >
-                    <option value="">23:30</option>
+                    <option value="23:30">23:30</option>
                     {times.map((time) => (
                     <option key={time} value={time}>
                         {time}

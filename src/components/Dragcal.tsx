@@ -119,20 +119,21 @@ const Clicked: React.FC<ClickedType> = ({id,data}) => {
 }
 
 
-const Showclicked: React.FC<ShowClickedType> = ({id,init,clicked}) => {
-    let clickmem: number = init ? init[id] || 0 : 0;
+const Showclicked: React.FC<ShowClickedType> = ({id,init,clicked,count}) => {
+    let clickmem: number = init ? (init[id]/count)*100 || 0 : 0;
+    const key = Math.floor((clickmem + 1) / 20) - 1;
+
     const colorVariants: ColorVariants = {
-        1 : 'bg-lime-50',
-        2 : 'bg-lime-100',
-        3 : 'bg-lime-200',
-        4 : 'bg-lime-300',
-        5 : 'bg-lime-400',
-        6 : 'bg-lime-500',
+        0 : 'bg-lime-100',
+        1 : 'bg-lime-200',
+        2 : 'bg-lime-300',
+        3 : 'bg-lime-400',
+        4 : 'bg-lime-500', 
     }
     return(
             <button 
                 id={id} 
-                className={`w-full h-10 ${colorVariants[clickmem]} border border-black ${clicked&&clicked.includes(id)&&'border-red-500'}`} 
+                className={`w-full h-10 ${colorVariants[key]} border border-black ${clicked&&clicked.includes(id)&&'border-red-500'}`} 
             ></button>
     )
 }
@@ -409,7 +410,7 @@ export const Dragcal: React.FC<DragcalProps> = ({roomdata,clicked}) => {
                         <p key={index} className="font-thin text-sm text-center">{time}</p>
                         {
                             days.map((day,index)=>(
-                                <Showclicked key={index} id={day+':'+time} count={5} init={initialdata} clicked={clickeddata}/>
+                                <Showclicked key={index} id={day+':'+time} count={roomdata.members.length} init={initialdata} clicked={clickeddata}/>
                             ))
                         }
                         </>

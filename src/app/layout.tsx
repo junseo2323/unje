@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "언제만날래?",
   description: "when we meet. copyright by Jun",
+  icons: {
+		icon: "/icons/favicon.ico",
+	},
 };
 
 export default function RootLayout({

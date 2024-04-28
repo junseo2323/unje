@@ -23,9 +23,9 @@ export const Share = ({titles,descriptions,url}:shareType) => {
             objectType: 'feed',
             content: {
               title: "일정을 공유받았습니다!",
-              description: "지금 접속해서 일정을 입력해주세요.",
+              description: "우리의 일정을 정하기 위해 당신의 일정을 입력해주세요!",
               imageUrl:
-                'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+                'https://ifh.cc/g/SXTSd7.jpg',
               link: {
                 mobileWebUrl: "https://unje.site"+url,
                 webUrl: "https://unje.site"+url,
@@ -104,9 +104,9 @@ export const ShareButton = ({titles,descriptions,url}:shareType) => {
             objectType: 'feed',
             content: {
               title: "일정을 공유받았습니다!",
-              description: "지금 일정을 확인해주세요.",
+              description: "우리의 일정을 정하기 위해 당신의 일정을 입력해주세요!",
               imageUrl:
-                'https://mud-kage.kakao.com/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg',
+                'https://ifh.cc/g/SXTSd7.jpg',
               link: {
                 mobileWebUrl: "https://unje.site"+url,
                 webUrl: "https://unje.site"+url,
