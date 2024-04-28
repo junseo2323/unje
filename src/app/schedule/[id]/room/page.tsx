@@ -38,7 +38,7 @@ export default function Create({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.put("http://localhost:3000/api/modifyroom",body)
+        axios.put("https://unje.site/api/modifyroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })
@@ -80,7 +80,7 @@ export default function Create({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.delete("http://localhost:3000/api/deleteroom",{
+        axios.delete("https://unje.site/api/deleteroom",{
           params: {
             id : params.id
           }
