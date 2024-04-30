@@ -75,7 +75,7 @@ export default function Create() {
       console.log(newId);
       console.log(body);
       if (result.isConfirmed) {
-        axios.post("https://unje.site/api/createroom",body)
+        axios.post(process.env.NEXT_PUBLIC_API_TEST+"/api/createroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })

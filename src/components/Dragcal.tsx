@@ -62,6 +62,7 @@ interface ShowClickedType {
 }
 interface FinalClickedType {
     id : string;
+    count : number;
     init?: { [key: string]: number };
     data: string[];
 }
@@ -100,20 +101,50 @@ function updateGlobalObject(key: string, value: boolean, globalArray: string[]):
 
 }
 
+let isMouseDown = false;
+let isTouching = false;
+
+document.addEventListener('touchstart', function() {
+  isTouching = true;
+});
+
+document.addEventListener('touchend', function() {
+  isTouching = false;
+});
+
+document.addEventListener('mousedown', function() {
+  isMouseDown = true;
+});
+
+document.addEventListener('mouseup', function() {
+  isMouseDown = false;
+});
+
 const Clicked: React.FC<ClickedType> = ({id,data}) => {
     const [isClicked, setIsClicked] = useState(false);
    
     const handleClick = () => {
+        if(isMouseDown || isTouching){
         setIsClicked(!isClicked);
         updateGlobalObject(id,!isClicked,data);
-        console.log(id)
+        }
     }
+    const handleDownClick = () => {
+        setIsClicked(!isClicked);
+        updateGlobalObject(id,!isClicked,data);
+    }
+    const [isTouched, setIsTouched] = useState(false);
+
+  
+
 
     return(
             <button 
                 id={id} 
                 className={`w-full h-10 ${isClicked?'bg-lime-500':'bg-white'} border border-black`} 
-                onClick={handleClick} 
+                onMouseOver={handleClick}
+                onMouseDown={handleDownClick}
+                
             ></button>        
     )
 }
@@ -138,8 +169,9 @@ const Showclicked: React.FC<ShowClickedType> = ({id,init,clicked,count}) => {
     )
 }
 
-const Finalclicked: React.FC<FinalClickedType> = ({id,init,data}) => {
-    let clickmem: number = init ? init[id] || 0 : 0;
+const Finalclicked: React.FC<FinalClickedType> = ({id,init,data,count}) => {
+    let clickmem: number = init ? (init[id]/count)*100 || 0 : 0;
+    const key = Math.floor((clickmem + 1) / 20) - 1;
 
     const [isClicked, setIsClicked] = useState(false);
 
@@ -163,7 +195,7 @@ const Finalclicked: React.FC<FinalClickedType> = ({id,init,data}) => {
             <button 
                 id={id}
                 onClick={handleClick} 
-                className={`w-full h-10 ${colorVariants[clickmem]} border border-black ${isClicked&&'border-red-500'}`} 
+                className={`w-full h-10 ${colorVariants[key]} border border-black ${isClicked&&'border-red-500'}`} 
             ></button>
     )
 }
@@ -383,7 +415,6 @@ export const Dragcal: React.FC<DragcalProps> = ({roomdata,clicked}) => {
         }
     }
 
-    console.log(times)
 
     // Check if the key exists before accessing it
     
@@ -520,7 +551,7 @@ export const FinalDragcal: React.FC<FinalDragcalProps> = ({getdata,roomdata}) =>
                         <p key={index} className="font-thin text-sm text-center">{time}</p>
                         {
                             days.map((day,index)=>(
-                                <Finalclicked key={index} id={day+':'+time} init={initialdata} data={getdata} />
+                                <Finalclicked key={index} id={day+':'+time} init={initialdata} data={getdata} count={roomdata.members.length}/>
                             ))
                         }
                         </>

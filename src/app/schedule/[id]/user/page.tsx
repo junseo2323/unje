@@ -71,7 +71,7 @@ export default function User({ params }: { params: { id: string } }) {
       })
       .then(result => {
         if (result.isConfirmed) {
-          axios.post("https://unje.site/api/usercreate",data)
+          axios.post(process.env.NEXT_PUBLIC_API_TEST+"/api/usercreate",data)
           .then(res => {
             console.log("call finish", res.data);
           })

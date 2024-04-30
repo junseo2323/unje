@@ -69,7 +69,7 @@ export default function Schedule({ params }: { params: { id: string } }) {
             </div>
             :
             <>
-              <div className="fixed right-10 top-[35px]">
+              <div className="fixed right-10 top-[65px]">
                   <p><Link href={pathname+'/room'} className="font-semibold text-xl">수정하기</Link></p>
                   <Share titles={roomdata.room_title} descriptions={roomdata.room_descripton} url={pathname}/>
               </div>

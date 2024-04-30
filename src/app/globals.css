@@ -37,6 +37,19 @@
     src: url('/fonts/NotoSansKR-Bold.ttf') format('truetype'); /* .ttf 파일 형식 */
 }
 
+@font-face {
+    font-family: 'BitBit';
+    font-style: normal;
+    font-weight: 700; /* Bold */
+    src: url('/fonts/DNFBitBitTTF.ttf') format('truetype'); /* .ttf 파일 형식 */
+}
+
 body{
-	font-family: 'Noto Sans KR'
+	font-family: 'Noto Sans KR';
+    overflow-x: hidden;
+
+}
+
+Header {
+    font-family: 'BitBit';
 }

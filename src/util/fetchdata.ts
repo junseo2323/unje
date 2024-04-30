@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default function fetchRoomdata(id: string) {
-    return axios.get("https://unje.site/api/searchroom", {
+    return axios.get(process.env.NEXT_PUBLIC_API_TEST+"/api/searchroom", {
       params: {
         id: id
       }
@@ -16,7 +16,7 @@ export default function fetchRoomdata(id: string) {
 }
 
 export function fetchGenerateId() {
-  return axios.get("https://unje.site/api/generateid")
+  return axios.get(process.env.NEXT_PUBLIC_API_TEST+"/api/generateid")
   .then((response) => {
       return response.data;
   })

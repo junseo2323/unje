@@ -107,7 +107,7 @@ export default function User({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.put("https://unje.site/api/finishroom",body)
+        axios.put(process.env.NEXT_PUBLIC_API_TEST+"/api/finishroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })

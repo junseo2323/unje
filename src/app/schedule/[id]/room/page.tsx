@@ -38,7 +38,7 @@ export default function Create({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.put("https://unje.site/api/modifyroom",body)
+        axios.put(process.env.NEXT_PUBLIC_API_TEST+"/api/modifyroom",body)
         .then(res => {
           console.log("call finish", res.data);
         })
@@ -80,7 +80,7 @@ export default function Create({ params }: { params: { id: string } }) {
     })
     .then(result => {
       if (result.isConfirmed) {
-        axios.delete("https://unje.site/api/deleteroom",{
+        axios.delete(process.env.NEXT_PUBLIC_API_TEST+"/api/deleteroom",{
           params: {
             id : params.id
           }
