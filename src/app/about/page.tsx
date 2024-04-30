@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import gsap from 'gsap';
+import {gsap} from 'gsap';
 import { useEffect } from "react";
 
 export default function About() {
@@ -23,7 +23,7 @@ export default function About() {
                     src="/bg_img-removebg.png"
                     width={300}
                     height={300}
-                    className="floating-image absolute z-10"
+                    className="floating-image absolute z-10 top-[64px]"
                     alt="Picture of the author"                    
                 />
                 <div className="relative z-20 mt-52">
