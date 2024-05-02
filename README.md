@@ -1,9 +1,7 @@
 # UNJE / 언제만날래?
 
-<aside>
-💡 when2meet 리빌딩 프로젝트, 언제 만날래?
+#💡 when2meet 리빌딩 프로젝트, 언제 만날래?
 
-</aside>
 
 ![Logo](/readme.png)
 
@@ -48,6 +46,6 @@
 
 ## 📁 링크
 
-[https://www.figma.com/file/qbmWIKLAXHLduaMJOq4BXx/sidepr%2Funje?type=design&node-id=0%3A1&mode=design&t=oJ3M7brh4S5omz8U-1](https://www.figma.com/file/qbmWIKLAXHLduaMJOq4BXx/sidepr%2Funje?type=design&node-id=0%3A1&mode=design&t=oJ3M7brh4S5omz8U-1)
+[Figma](https://www.figma.com/file/qbmWIKLAXHLduaMJOq4BXx/sidepr%2Funje?type=design&node-id=0%3A1&mode=design&t=oJ3M7brh4S5omz8U-1)
 
-[https://github.com/junseo2323/unje](https://github.com/junseo2323/unje)
+[Github](https://github.com/junseo2323/unje)
