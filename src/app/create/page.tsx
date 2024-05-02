@@ -45,7 +45,10 @@ export default function Create() {
 
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors }
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = data => {
@@ -112,21 +115,39 @@ export default function Create() {
   const handleTimeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedTime(event.target.value);
   };
+  const startDate = watch('start_date');
+
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid place-items-left p-[35px]">
             <input {...register('room_title',{required: true})} placeholder="어떤 만남인가요?" className="mt-5 border-b-2 w-60 border-black outline-none pb-1 font-thin text-2xl" />
+            {errors?.room_title?.type === 'required' && (
+                  <p>방 이름을 입력해주세요.</p>
+              )}
             <h1 className="mt-10 font-semibold text-2xl">자세한 정보를 알려주세요</h1>
             <textarea {...register('room_description',{required: true})} placeholder="간단하게 한줄로 우리의 모임을 소개해주세요!" className="border-b-2 w-80 border-black outline-none pb-1 font-thin text-base h-14" />
-
+            {errors?.room_description?.type === 'required' && (
+                  <p>방 설명을 입력해주세요.</p>
+              )}
             <h1 className="mt-10 font-semibold text-2xl">며칠날 만나고 싶으신가요?</h1>
             <div className="mt-5">
                 <input type="date" className="w-40" {...register('start_date',{required: true})}/>
                 <span className="pl-10 font-bold">부터</span>
+                {errors?.start_date?.type === 'required' && (
+                  <p>시작 날짜를 입력해주세요.</p>
+                )}
             </div>
             <div>
-                <input type="date" className="w-40" {...register('end_date',{required: true})}/>
+                <input type="date" className="w-40" {...register('end_date',{required: true, min: startDate,}
+                )}/>
                 <span className="pl-10 font-bold" >까지</span>
+
+                {errors?.end_date?.type === 'required' && (
+                  <p>종료 날짜를 입력해주세요.</p>
+                )}
+                {errors?.end_date?.type === 'min' && (
+                  <p>시작 날짜 이후로 입력해주세요.</p>
+                )}
             </div>
             <h1 className="mt-10 font-semibold text-2xl">몇시에 만나고 싶으신가요?</h1>
             

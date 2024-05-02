@@ -291,7 +291,7 @@ export const UserDragcal: React.FC<UserDragcalProps> = ({getdata,roomdata}) => {
     }
 
     return(
-        <div className={`grid  ${colClass}`}>
+        <div className={`grid mb-96  ${colClass}`}>
             <div></div>
             {
                 weeks.map((week,index) => (
